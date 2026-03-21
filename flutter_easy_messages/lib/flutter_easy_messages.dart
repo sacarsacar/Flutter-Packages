@@ -1,3 +1,6 @@
+/// A Flutter package for easy toast and snackbar messages.
+library;
+
 export 'src/animation_presets.dart';
 export 'src/message_behavior.dart';
 export 'src/message_config.dart';

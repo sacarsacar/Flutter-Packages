@@ -1,17 +1,19 @@
-# example
+# Flutter Easy Messages Example
 
-A new Flutter project.
+This example demonstrates how to use the `flutter_easy_messages` package to display toast notifications and snackbars in a Flutter app.
+
+## Features Demonstrated
+
+- Toast notifications with different positions
+- Snackbar messages
+- Custom animations and durations
+- Message types (success, error, info, warning)
+- Responsive behavior
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. Run the app: `flutter run`
+2. Tap the buttons to see different message types
+3. Observe the animations and positioning
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+For more information, see the [package documentation](https://pub.dev/packages/flutter_easy_messages).

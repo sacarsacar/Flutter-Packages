@@ -45,11 +45,19 @@ class AnimationPresets {
 
 /// Container for animation duration values
 class AnimationDuration {
+  /// Duration for the entry animation
   final Duration entry;
+
+  /// Duration for the exit animation
   final Duration exit;
+
+  /// Duration for the pulse animation
   final Duration pulse;
+
+  /// Duration for the reverse pulse animation
   final Duration pulseReverse;
 
+  /// Creates an AnimationDuration with the specified durations
   const AnimationDuration({
     required this.entry,
     required this.exit,

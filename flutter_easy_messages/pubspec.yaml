@@ -1,5 +1,5 @@
 name: flutter_easy_messages
-description: "A simple and customizable Flutter package for displaying toast notifications and snackbars. Features smooth animations, multiple positioning options, message types, and flexible behavior modes."
+description: "A customizable Flutter package for toast notifications and snackbars with smooth animations, multiple positions, and flexible behaviors."
 version: 0.0.2
 homepage: https://github.com/sacarsacar/Flutter-Packages
 repository: https://github.com/sacarsacar/Flutter-Packages
