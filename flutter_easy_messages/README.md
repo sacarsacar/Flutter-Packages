@@ -2,7 +2,6 @@
 
 A simple, elegant, and highly customizable Flutter package for displaying toast notifications and snackbars. Features smooth animations, multiple positioning options, message types (error, success, info, warning), and flexible behavior modes (queue or replace).
 
-> **Production-ready notification solution** with accessibility support and responsive design for all screen sizes.
 
 ## ✨ Features
 
