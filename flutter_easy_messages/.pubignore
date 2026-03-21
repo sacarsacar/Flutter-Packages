@@ -1,0 +1,26 @@
+# Build and generated files
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# System files
+.DS_Store
+.svn/
+.git/
+.gitignore
+
+# Example app
+example/
+
+# Development files
+.env
+.env.local
