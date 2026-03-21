@@ -2,7 +2,6 @@
 
 A simple, elegant, and highly customizable Flutter package for displaying toast notifications and snackbars. Features smooth animations, multiple positioning options, message types (error, success, info, warning), and flexible behavior modes (queue or replace).
 
-> **Production-ready notification solution** with accessibility support and responsive design for all screen sizes.
 
 ## ✨ Features
 
@@ -20,19 +19,19 @@ A simple, elegant, and highly customizable Flutter package for displaying toast 
 ## 🎬 Demo
 
 ### Message Types & Colors
-<img src="./demo/message_types.gif" width="300" alt="Message Types">
+<img src=".//flutter_easy_messages/demo/message_types.gif" width="300" alt="Message Types">
 
 ### Snackbars
-<img src="./demo/snackbar.gif" width="300" alt="Snackbars">
+<img src=".//flutter_easy_messages/demo/snackbar.gif" width="300" alt="Snackbars">
 
 ### Toast Positions (9 Options)
-<img src="./demo/positions.gif" width="300" alt="Toast Positions">
+<img src=".//flutter_easy_messages/demo/positions.gif" width="300" alt="Toast Positions">
 
 ### Custom Styling & Icons
-<img src="./demo/styles.gif" width="300" alt="Custom Styling">
+<img src=".//flutter_easy_messages/demo/styles.gif" width="300" alt="Custom Styling">
 
 ### Animations & Durations
-<img src="./demo/animations_and_durations.gif" width="300" alt="Animations & Durations">
+<img src=".//flutter_easy_messages/demo/animations_and_durations.gif" width="300" alt="Animations & Durations">
 
 ## 📦 Getting Started
 
