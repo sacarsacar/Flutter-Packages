@@ -18,20 +18,34 @@ A simple, elegant, and highly customizable Flutter package for displaying toast 
 
 ## 🎬 Demo
 
-### Message Types & Colors
-<img src="./demo/message_types.gif" width="300" alt="Message Types">
-
-### Snackbars
-<img src="./demo/snackbar.gif" width="300" alt="Snackbars">
-
-### Toast Positions (9 Options)
-<img src="./demo/positions.gif" width="300" alt="Toast Positions">
-
-### Custom Styling & Icons
-<img src="./demo/styles.gif" width="300" alt="Custom Styling">
-
-### Animations & Durations
-<img src="./demo/animations_and_durations.gif" width="300" alt="Animations & Durations">
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <b>Message Types & Colors</b><br>
+      <img src="./demo/message_types.gif" width="250" alt="Message Types">
+    </td>
+    <td align="center" width="50%">
+      <b>Snackbars</b><br>
+      <img src="./demo/snackbar.gif" width="250" alt="Snackbars">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <b>Toast Positions (9 Options)</b><br>
+      <img src="./demo/positions.gif" width="250" alt="Toast Positions">
+    </td>
+    <td align="center" width="50%">
+      <b>Custom Styling & Icons</b><br>
+      <img src="./demo/styles.gif" width="250" alt="Custom Styling">
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <b>Animations & Durations</b><br>
+      <img src="./demo/animations_and_durations.gif" width="250" alt="Animations & Durations">
+    </td>
+  </tr>
+</table>
 
 ## 📦 Getting Started
 
