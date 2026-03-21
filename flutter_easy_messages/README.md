@@ -22,27 +22,27 @@ A simple, elegant, and highly customizable Flutter package for displaying toast 
   <tr>
     <td align="center" width="50%">
       <b>Message Types & Colors</b><br>
-      <img src="./demo/message_types.gif" width="250" alt="Message Types">
+      <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/flutter_easy_messages/demo/message_types.gif" width="250" alt="Message Types">
     </td>
     <td align="center" width="50%">
       <b>Snackbars</b><br>
-      <img src="./demo/snackbar.gif" width="250" alt="Snackbars">
+      <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/flutter_easy_messages/demo/snackbar.gif" width="250" alt="Snackbars">
     </td>
   </tr>
   <tr>
     <td align="center" width="50%">
       <b>Toast Positions (9 Options)</b><br>
-      <img src="./demo/positions.gif" width="250" alt="Toast Positions">
+      <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/flutter_easy_messages/demo/positions.gif" width="250" alt="Toast Positions">
     </td>
     <td align="center" width="50%">
       <b>Custom Styling & Icons</b><br>
-      <img src="./demo/styles.gif" width="250" alt="Custom Styling">
+      <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/flutter_easy_messages/demo/styles.gif" width="250" alt="Custom Styling">
     </td>
   </tr>
   <tr>
     <td align="center" width="50%">
       <b>Animations & Durations</b><br>
-      <img src="./demo/animations_and_durations.gif" width="250" alt="Animations & Durations">
+      <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/flutter_easy_messages/demo/animations_and_durations.gif" width="250" alt="Animations & Durations">
     </td>
   </tr>
 </table>

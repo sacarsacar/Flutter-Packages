@@ -1,3 +1,8 @@
+## 0.0.2 - Documentation Fix
+
+### Bug Fixes
+- Fixed demo GIFs not displaying on pub.dev by using absolute GitHub URLs in README
+
 ## 0.0.1 - Initial Release
 
 ### Features
