@@ -1,3 +1,11 @@
+## 0.0.3 - Package Validation Fixes
+
+### Improvements
+- Shortened package description to meet pub.dev guidelines (60-180 characters)
+- Added comprehensive example app documentation
+- Added dartdoc comments to AnimationDuration class and library
+- Improved package validation score
+
 ## 0.0.2 - Documentation Fix
 
 ### Bug Fixes
