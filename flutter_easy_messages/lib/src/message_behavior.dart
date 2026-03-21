@@ -1,0 +1,1 @@
+enum MessageBehavior { replace, queue }

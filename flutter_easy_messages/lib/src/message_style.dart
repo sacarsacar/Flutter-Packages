@@ -13,6 +13,11 @@ MessageStyle resolveMessageStyle({
   Widget? icon,
   Color? backgroundColor,
 }) {
+  // Prioritize custom backgroundColor over message type
+  if (backgroundColor != null) {
+    return MessageStyle(icon: icon, backgroundColor: backgroundColor);
+  }
+
   if (messageType != null) {
     switch (messageType) {
       case MessageType.error:
@@ -38,8 +43,5 @@ MessageStyle resolveMessageStyle({
     }
   }
 
-  return MessageStyle(
-    icon: icon,
-    backgroundColor: backgroundColor ?? Colors.black87,
-  );
+  return MessageStyle(icon: icon, backgroundColor: Colors.black87);
 }
