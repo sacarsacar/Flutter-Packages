@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'message_type.dart';
 
+/// Represents the visual styling for a message (color and icon).
 class MessageStyle {
-  final Widget? icon;
+  /// Background color of the message
   final Color backgroundColor;
 
-  const MessageStyle({required this.icon, required this.backgroundColor});
+  /// Icon widget displayed in the message
+  final Widget? icon;
+
+  const MessageStyle({required this.backgroundColor, this.icon});
 }
 
 MessageStyle resolveMessageStyle({

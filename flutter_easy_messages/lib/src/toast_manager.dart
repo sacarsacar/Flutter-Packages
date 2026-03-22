@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'message_position.dart';
 import 'toast_widget.dart';
 
+/// Represents a request to display a toast notification.
+///
+/// Contains all the configuration needed to display a toast message,
+/// including content, styling, positioning, and animation parameters.
 class ToastRequest {
   final BuildContext context;
   final String message;
@@ -37,6 +41,11 @@ class ToastRequest {
       '$message|$backgroundColor|$position|${offset.dx}|${offset.dy}|${duration.inMilliseconds}|$borderRadius';
 }
 
+/// Manages the display and queue of toast notifications.
+///
+/// This class is responsible for showing, queuing, and dismissing toasts.
+/// It maintains a queue of pending toasts and handles the orchestration
+/// of toast display based on the configured behavior (replace or queue).
 class ToastManager {
   ToastManager._();
 

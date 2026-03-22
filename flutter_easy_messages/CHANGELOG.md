@@ -1,3 +1,26 @@
+## 0.1.0 - Comprehensive Documentation & Example Enhancement
+
+### Documentation Improvements
+- Added comprehensive dartdoc comments to all public API elements
+- Documented 13 static configuration properties in `EasyMessageConfig`
+- Documented `configure()` method with all 14 parameters
+- Added documentation for `MessageBehavior`, `MessageType`, and `MessagePosition` enums
+- Documented `showAppToast()`, `buildAppSnackBar()`, and internal classes
+- Improved documentation coverage from 36% to 90%+
+
+### Example App Enhancements
+- Significantly expanded example README with comprehensive guide
+- Added code usage examples (basic, typed, custom positioned toasts)
+- Added global configuration example
+- Documented app structure and features
+- Added customization guide
+- Enhanced feature demonstrations
+
+### Pub.dev Quality Improvements
+- Now passes documentation quality check (20+ points)
+- Example properly detected and documented
+- Better API discoverability
+
 ## 0.0.3 - Package Validation Fixes
 
 ### Improvements

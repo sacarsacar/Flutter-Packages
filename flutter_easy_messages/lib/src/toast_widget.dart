@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'message_config.dart';
 import 'message_position.dart';
 
+/// Internal widget for displaying an animated toast notification.
+///
+/// This widget handles the visual presentation and animations for toast messages.
+/// It supports entry/exit animations and optional pulse animations.
 class ToastWidget extends StatefulWidget {
   final String message;
   final Widget? icon;

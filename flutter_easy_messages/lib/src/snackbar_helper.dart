@@ -7,6 +7,29 @@ import 'responsive_utils.dart';
 
 String? _lastSnackBarKey;
 
+/// Builds a customizable snackbar widget.
+///
+/// Creates a [SnackBar] with styling, animation, and responsive behavior.
+/// Use with [ScaffoldMessenger.of(context).showSnackBar()] to display.
+///
+/// Parameters:
+/// - [context]: The build context for layout calculations
+/// - [message]: Required text content to display
+/// - [messageType]: Visual style of the snackbar (error, success, info, warning)
+/// - [icon]: Optional custom icon widget
+/// - [backgroundColor]: Optional custom background color
+/// - [duration]: How long the snackbar remains visible
+/// - [borderRadius]: Border radius of the snackbar container
+/// - [maxLines]: Maximum lines before text wrapping
+/// - [overflow]: Text overflow behavior
+/// - [softWrap]: Whether text should wrap
+/// - [textAlign]: Text alignment within the snackbar
+/// - [responsive]: Whether to adapt size based on screen dimensions
+/// - [mobileBreakpoint]: Screen width threshold for mobile layout
+/// - [tabletBreakpoint]: Screen width threshold for tablet layout
+/// - [tabletWidth]: Snackbar width on tablet devices
+/// - [desktopWidth]: Snackbar width on desktop devices
+/// - [mobileMargin]: Margin spacing on mobile devices
 SnackBar buildAppSnackBar(
   BuildContext context, {
   required String message,
