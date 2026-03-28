@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easy_messages/flutter_easy_messages.dart';
 
 void main() {
+  // Create navigator key for context-free toasts
+  final navigatorKey = GlobalKey<NavigatorState>();
+
+  // Set the navigator key BEFORE configuring
+  EasyMessageConfig.setNavigatorKey(navigatorKey);
+
   // Configure global message settings
   EasyMessageConfig.configure(
     toastDuration: Duration(seconds: 2),
@@ -10,15 +16,18 @@ void main() {
     enablePulse: true,
   );
 
-  runApp(const ExampleApp());
+  runApp(ExampleApp(navigatorKey: navigatorKey));
 }
 
 class ExampleApp extends StatelessWidget {
-  const ExampleApp({super.key});
+  final GlobalKey<NavigatorState> navigatorKey;
+
+  const ExampleApp({required this.navigatorKey, super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Easy Messages Example',
       theme: ThemeData(
@@ -96,8 +105,8 @@ class _MessageDemoPageState extends State<MessageDemoPage> {
                   (
                     'Warning',
                     () => showAppToast(
-                      context,
                       'Please be cautious',
+                      context: context,
                       messageType: MessageType.warning,
                       duration: const Duration(seconds: 2),
                     ),
@@ -155,6 +164,31 @@ class _MessageDemoPageState extends State<MessageDemoPage> {
                 _buildResponsiveButtonRow([
                   ('Offset Toast', _showOffsetToast),
                   ('Long Duration', _showLongDurationToast),
+                ], isTablet),
+                SizedBox(height: verticalSpacing),
+                _buildSectionHeader('API Error Handling', sectionHeight),
+                _buildResponsiveButtonRow([
+                  ('With Retry', _showErrorWithRetry),
+                  ('With Details', _showErrorWithDetails),
+                ], isTablet),
+                _buildResponsiveButtonRow([
+                  ('Persistent Toast', _showPersistentToast),
+                  ('Dismissible', _showDismissibleToast),
+                ], isTablet),
+                SizedBox(height: verticalSpacing),
+                _buildSectionHeader('Advanced Features', sectionHeight),
+                _buildResponsiveButtonRow([
+                  ('No Context Toast', _showContextFreeToast),
+                  ('No Context Custom', _showContextFreeCustom),
+                ], isTablet),
+                SizedBox(height: verticalSpacing),
+                _buildSectionHeader('Custom Font & Size', sectionHeight),
+                _buildResponsiveButtonRow([
+                  ('Custom Font', _showCustomFontToast),
+                  ('Large Bold', _showLargeTextToast),
+                ], isTablet),
+                _buildResponsiveButtonRow([
+                  ('Custom SnackBar', _showCustomSnackBar),
                 ], isTablet),
                 SizedBox(height: verticalSpacing),
               ],
@@ -285,17 +319,22 @@ class _MessageDemoPageState extends State<MessageDemoPage> {
   }
 
   void _showMessageType(MessageType type, String message) {
-    showAppToast(context, message, messageType: type);
+    showAppToast(message, context: context, messageType: type);
   }
 
   void _showSnackBar(MessageType type, String message) {
-    showAppSnackBar(context, message, messageType: type);
+    final snackBar = buildAppSnackBar(
+      message,
+      context: context,
+      messageType: type,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   void _showToastAtPosition(MessagePosition position, String label) {
     showAppToast(
-      context,
       label,
+      context: context,
       messageType: MessageType.info,
       position: position,
     );
@@ -307,8 +346,8 @@ class _MessageDemoPageState extends State<MessageDemoPage> {
       Future.delayed(Duration(milliseconds: i * 100), () {
         if (mounted) {
           showAppToast(
-            context,
             'Queued message $i',
+            context: context,
             messageType: MessageType.info,
             behavior: MessageBehavior.queue,
           );
@@ -318,12 +357,13 @@ class _MessageDemoPageState extends State<MessageDemoPage> {
   }
 
   void _showReplacedMessages() {
+    messageQueueCount = 0;
     for (int i = 1; i <= 3; i++) {
       Future.delayed(Duration(milliseconds: i * 200), () {
         if (mounted) {
           showAppToast(
-            context,
             'Message $i (previous replaced)',
+            context: context,
             messageType: MessageType.warning,
             behavior: MessageBehavior.replace,
           );
@@ -334,16 +374,16 @@ class _MessageDemoPageState extends State<MessageDemoPage> {
 
   void _showPurpleToast() {
     showAppToast(
-      context,
       'Custom purple toast',
+      context: context,
       backgroundColor: Colors.purple,
     );
   }
 
   void _showTealToast() {
     showAppToast(
-      context,
       'Custom teal toast',
+      context: context,
       backgroundColor: Colors.teal,
       borderRadius: 20,
     );
@@ -351,8 +391,8 @@ class _MessageDemoPageState extends State<MessageDemoPage> {
 
   void _showToastWithIcon() {
     showAppToast(
-      context,
       'Message with custom icon',
+      context: context,
       icon: const Icon(Icons.favorite, color: Colors.white),
       backgroundColor: Colors.pink,
     );
@@ -360,8 +400,8 @@ class _MessageDemoPageState extends State<MessageDemoPage> {
 
   void _showMultiLineToast() {
     showAppToast(
-      context,
       'This is a longer message that wraps to multiple lines for demonstration purposes',
+      context: context,
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
       backgroundColor: Colors.indigo,
@@ -374,8 +414,8 @@ class _MessageDemoPageState extends State<MessageDemoPage> {
       toastExitAnimationDuration: AnimationPresets.fast.exit,
     );
     showAppToast(
-      context,
       'Fast animation (200ms)',
+      context: context,
       messageType: MessageType.success,
     );
     EasyMessageConfig.reset();
@@ -383,8 +423,8 @@ class _MessageDemoPageState extends State<MessageDemoPage> {
 
   void _showNormalAnimation() {
     showAppToast(
-      context,
       'Normal animation (400ms)',
+      context: context,
       messageType: MessageType.info,
     );
   }
@@ -395,8 +435,8 @@ class _MessageDemoPageState extends State<MessageDemoPage> {
       toastExitAnimationDuration: AnimationPresets.slow.exit,
     );
     showAppToast(
-      context,
       'Slow animation (600ms)',
+      context: context,
       messageType: MessageType.info,
     );
     EasyMessageConfig.reset();
@@ -408,8 +448,8 @@ class _MessageDemoPageState extends State<MessageDemoPage> {
       toastExitAnimationDuration: AnimationPresets.instant.exit,
     );
     showAppToast(
-      context,
       'Instant animation',
+      context: context,
       messageType: MessageType.warning,
     );
     EasyMessageConfig.reset();
@@ -417,8 +457,8 @@ class _MessageDemoPageState extends State<MessageDemoPage> {
 
   void _showOffsetToast() {
     showAppToast(
-      context,
       'Offset toast',
+      context: context,
       backgroundColor: Colors.deepOrange,
       position: MessagePosition.bottomCenter,
       offset: const Offset(0, -50),
@@ -427,10 +467,153 @@ class _MessageDemoPageState extends State<MessageDemoPage> {
 
   void _showLongDurationToast() {
     showAppToast(
-      context,
       'This message stays for 5 seconds',
+      context: context,
       messageType: MessageType.success,
       duration: const Duration(seconds: 5),
+    );
+  }
+
+  void _showCustomFontToast() {
+    showAppToast(
+      'Custom Font & Size',
+      context: context,
+      messageType: MessageType.info,
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Roboto',
+    );
+  }
+
+  void _showLargeTextToast() {
+    showAppToast(
+      'Large bold text',
+      messageType: MessageType.success,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
+  void _showCustomSnackBar() {
+    final snackBar = buildAppSnackBar(
+      'Snackbar with custom font',
+      context: context,
+      messageType: MessageType.info,
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  /// API Error with Retry Button
+  /// Demonstrates action buttons for error recovery
+  void _showErrorWithRetry() {
+    showAppToast(
+      'Failed to upload document.pdf',
+      messageType: MessageType.error,
+      duration: Duration(seconds: 10),
+      actions: [
+        ToastAction(
+          label: 'Retry',
+          color: Colors.green,
+          textColor: Colors.white,
+          onPressed: () {
+            showAppToast(
+              'Retrying upload...',
+              messageType: MessageType.info,
+              isPersistent: true,
+              dismissible: true,
+              position: MessagePosition.bottomCenter,
+            );
+          },
+        ),
+        ToastAction(
+          label: 'Cancel',
+          color: Colors.orangeAccent,
+          textColor: Colors.white,
+          onPressed: () {
+            showAppToast('Upload cancelled', messageType: MessageType.warning);
+          },
+        ),
+      ],
+    );
+  }
+
+  /// Error with Expanded Details
+  /// Show detailed error information that user can expand
+  void _showErrorWithDetails() {
+    final now = DateTime.now();
+    showAppToast(
+      '❌ API Request Failed',
+      messageType: MessageType.error,
+      duration: Duration(seconds: 8),
+      errorDetails:
+          'Status Code: 500\nEndpoint: /api/v1/upload\nError: Internal Server Error\nTime: ${now.toIso8601String()}\nRequest ID: REQ-${now.millisecondsSinceEpoch}',
+    );
+  }
+
+  /// Long-running Operation Toast
+  /// Persistent message for async operations like uploads/downloads
+  void _showPersistentToast() {
+    showAppToast(
+      '⏳ Processing PDF file...',
+      messageType: MessageType.info,
+      isPersistent: true,
+      dismissible: true,
+      duration: Duration(seconds: 999),
+      requestId: 'processing_pdf_001',
+      onShown: () {
+        // Simulate async operation
+        Future.delayed(Duration(seconds: 3), () {
+          if (mounted) {
+            ToastManager.clearByRequestId('processing_pdf_001');
+            showAppToast(
+              '✅ PDF processing complete!',
+              messageType: MessageType.success,
+            );
+          }
+        });
+      },
+      onDismissed: () {
+        // Cleanup operation if needed
+      },
+    );
+  }
+
+  /// User-Dismissible Toast
+  /// Let user close notification anytime
+  void _showDismissibleToast() {
+    showAppToast(
+      '👆 Tap anywhere on this toast to close it',
+      messageType: MessageType.warning,
+      dismissible: true,
+      duration: Duration(seconds: 5),
+    );
+  }
+
+  /// Context-Free Toast with Request Tracking
+  /// Works anywhere without BuildContext
+  void _showContextFreeToast() {
+    showAppToast(
+      '🎉 No BuildContext required!',
+      messageType: MessageType.success,
+      duration: const Duration(seconds: 3),
+      requestId: 'context_free_demo_${DateTime.now().millisecondsSinceEpoch}',
+    );
+  }
+
+  /// Advanced Context-Free with Custom Styling
+  /// Demonstrates all customization without context
+  void _showContextFreeCustom() {
+    showAppToast(
+      '🚀 Advanced Styling - No Context!',
+      messageType: MessageType.info,
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Roboto',
+      duration: const Duration(seconds: 3),
+      borderRadius: 16,
+      position: MessagePosition.bottomCenter,
     );
   }
 }

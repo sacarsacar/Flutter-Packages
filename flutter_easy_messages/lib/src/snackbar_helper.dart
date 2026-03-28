@@ -13,8 +13,8 @@ String? _lastSnackBarKey;
 /// Use with [ScaffoldMessenger.of(context).showSnackBar()] to display.
 ///
 /// Parameters:
-/// - [context]: The build context for layout calculations
 /// - [message]: Required text content to display
+/// - [context]: Optional build context for layout calculations (if not provided, uses global navigator key)
 /// - [messageType]: Visual style of the snackbar (error, success, info, warning)
 /// - [icon]: Optional custom icon widget
 /// - [backgroundColor]: Optional custom background color
@@ -30,9 +30,12 @@ String? _lastSnackBarKey;
 /// - [tabletWidth]: Snackbar width on tablet devices
 /// - [desktopWidth]: Snackbar width on desktop devices
 /// - [mobileMargin]: Margin spacing on mobile devices
+/// - [fontSize]: Font size for snackbar text
+/// - [fontWeight]: Font weight for snackbar text
+/// - [fontFamily]: Font family for snackbar text
 SnackBar buildAppSnackBar(
-  BuildContext context, {
-  required String message,
+  String message, {
+  BuildContext? context,
   MessageType? messageType,
   Widget? icon,
   Color? backgroundColor,
@@ -51,6 +54,9 @@ SnackBar buildAppSnackBar(
     horizontal: 12,
     vertical: 12,
   ),
+  double? fontSize,
+  FontWeight? fontWeight,
+  String? fontFamily,
 }) {
   final style = resolveMessageStyle(
     messageType: messageType,
@@ -58,7 +64,20 @@ SnackBar buildAppSnackBar(
     backgroundColor: backgroundColor,
   );
 
-  final screenWidth = MediaQuery.of(context).size.width;
+  // Context is required for snackbars (unlike toasts)
+  assert(
+    context != null,
+    'BuildContext is required for snackbars. Pass it as a parameter to buildAppSnackBar().',
+  );
+
+  final snackBarFontSize =
+      fontSize ?? EasyMessageConfig.defaultSnackBarFontSize;
+  final snackBarFontWeight =
+      fontWeight ?? EasyMessageConfig.defaultSnackBarFontWeight;
+  final snackBarFontFamily =
+      fontFamily ?? EasyMessageConfig.defaultSnackBarFontFamily;
+
+  final screenWidth = MediaQuery.of(context!).size.width;
 
   double? snackBarWidth;
   EdgeInsetsGeometry? snackBarMargin;
@@ -101,7 +120,12 @@ SnackBar buildAppSnackBar(
             overflow: overflow,
             softWrap: softWrap,
             textAlign: textAlign,
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: snackBarFontSize,
+              fontWeight: snackBarFontWeight,
+              fontFamily: snackBarFontFamily,
+            ),
           ),
         ),
       ],
@@ -132,6 +156,9 @@ void showAppSnackBar(
     horizontal: 12,
     vertical: 12,
   ),
+  double? fontSize,
+  FontWeight? fontWeight,
+  String? fontFamily,
 }) {
   // Input validation
   assert(message.isNotEmpty, 'Message cannot be empty');
@@ -187,8 +214,8 @@ void showAppSnackBar(
   messenger
       .showSnackBar(
         buildAppSnackBar(
-          context,
-          message: message,
+          message,
+          context: context,
           messageType: messageType,
           icon: icon,
           backgroundColor: backgroundColor,

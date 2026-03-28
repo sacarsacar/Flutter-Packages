@@ -306,6 +306,8 @@ void main() {
         borderRadius: 12,
         position: MessagePosition.bottomCenter,
         offset: Offset.zero,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
       );
 
       expect(request.message, message);
@@ -325,6 +327,8 @@ void main() {
         borderRadius: 12,
         position: MessagePosition.bottomCenter,
         offset: Offset.zero,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
       );
 
       final request2 = ToastRequest(
@@ -336,6 +340,8 @@ void main() {
         borderRadius: 12,
         position: MessagePosition.bottomCenter,
         offset: Offset.zero,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
       );
 
       expect(request1.dedupKey != request2.dedupKey, true);
@@ -354,6 +360,8 @@ void main() {
         borderRadius: 12,
         position: MessagePosition.bottomCenter,
         offset: Offset.zero,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
       );
 
       final request2 = ToastRequest(
@@ -365,6 +373,8 @@ void main() {
         borderRadius: 12,
         position: MessagePosition.bottomCenter,
         offset: Offset.zero,
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
       );
 
       expect(request1.dedupKey == request2.dedupKey, true);

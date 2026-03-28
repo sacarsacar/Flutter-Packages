@@ -1,15 +1,17 @@
 import 'dart:async';
 import 'dart:collection';
 import 'package:flutter/material.dart';
+import 'message_config.dart';
 import 'message_position.dart';
+import 'toast_action.dart';
 import 'toast_widget.dart';
 
 /// Represents a request to display a toast notification.
 ///
 /// Contains all the configuration needed to display a toast message,
-/// including content, styling, positioning, and animation parameters.
+/// including content, styling, positioning, animation parameters, actions, and callbacks.
 class ToastRequest {
-  final BuildContext context;
+  final BuildContext? context;
   final String message;
   final Widget? icon;
   final Color backgroundColor;
@@ -21,9 +23,19 @@ class ToastRequest {
   final TextOverflow? overflow;
   final bool? softWrap;
   final TextAlign? textAlign;
+  final double fontSize;
+  final FontWeight fontWeight;
+  final String? fontFamily;
+  final List<ToastAction>? actions;
+  final String? errorDetails;
+  final bool isPersistent;
+  final bool dismissible;
+  final String? requestId;
+  final VoidCallback? onShown;
+  final VoidCallback? onDismissed;
 
   ToastRequest({
-    required this.context,
+    this.context,
     required this.message,
     required this.icon,
     required this.backgroundColor,
@@ -35,6 +47,16 @@ class ToastRequest {
     this.overflow,
     this.softWrap,
     this.textAlign,
+    required this.fontSize,
+    required this.fontWeight,
+    this.fontFamily,
+    this.actions,
+    this.errorDetails,
+    this.isPersistent = false,
+    this.dismissible = false,
+    this.requestId,
+    this.onShown,
+    this.onDismissed,
   });
 
   String get dedupKey =>
@@ -50,6 +72,7 @@ class ToastManager {
   ToastManager._();
 
   static final Queue<ToastRequest> _queue = Queue<ToastRequest>();
+  static final Map<String, List<OverlayEntry>> _entriesByRequestId = {};
 
   static OverlayEntry? _currentEntry;
   static GlobalKey<ToastWidgetState>? _currentToastKey;
@@ -106,8 +129,16 @@ class ToastManager {
           overflow: request.overflow,
           softWrap: request.softWrap,
           textAlign: request.textAlign,
+          fontSize: request.fontSize,
+          fontWeight: request.fontWeight,
+          fontFamily: request.fontFamily,
+          actions: request.actions,
+          errorDetails: request.errorDetails,
+          isPersistent: request.isPersistent,
+          dismissible: request.dismissible,
           onDismissed: () {
             _removeEntrySafely(overlayEntry);
+            request.onDismissed?.call();
             _showNext();
           },
         );
@@ -119,20 +150,48 @@ class ToastManager {
     _currentRequest = request;
     _isShowing = true;
 
-    final overlay = Overlay.of(request.context);
-    overlay.insert(overlayEntry);
+    // Track by request ID if provided
+    if (request.requestId != null) {
+      _entriesByRequestId.putIfAbsent(request.requestId!, () => []);
+      _entriesByRequestId[request.requestId]!.add(overlayEntry);
+    }
+
+    // Get overlay from context or navigator key
+    final overlayState = request.context != null
+        ? Overlay.of(request.context!)
+        : EasyMessageConfig.navigatorKey?.currentState?.overlay;
+
+    assert(
+      overlayState != null,
+      'Could not find overlay. Either provide BuildContext or ensure navigator key is set',
+    );
+
+    if (overlayState != null) {
+      overlayState.insert(overlayEntry);
+    } else {
+      throw Exception(
+        'No overlay found. Please ensure either: '
+        '(1) You provided a BuildContext, or '
+        '(2) You called EasyMessageConfig.setNavigatorKey() in main() and passed the key to MaterialApp',
+      );
+    }
+
+    // Invoke onShown callback
+    request.onShown?.call();
 
     // Cancel and reset previous timer
     _currentTimer?.cancel();
     _currentTimer = null;
 
-    // Set new timer for dismissal
-    _currentTimer = Timer(request.duration, () async {
-      // Only dismiss if this is still the current toast
-      if (_currentRequest == request) {
-        await dismissCurrent();
-      }
-    });
+    // Set new timer for dismissal (skip if persistent)
+    if (!request.isPersistent) {
+      _currentTimer = Timer(request.duration, () async {
+        // Only dismiss if this is still the current toast
+        if (_currentRequest == request) {
+          await dismissCurrent();
+        }
+      });
+    }
   }
 
   static Future<void> dismissCurrent() async {
@@ -167,6 +226,14 @@ class ToastManager {
       // Already removed.
     }
 
+    // Clean up request ID tracking
+    if (_currentRequest?.requestId != null) {
+      _entriesByRequestId[_currentRequest!.requestId]?.remove(entry);
+      if (_entriesByRequestId[_currentRequest!.requestId]?.isEmpty ?? false) {
+        _entriesByRequestId.remove(_currentRequest!.requestId);
+      }
+    }
+
     _currentEntry = null;
     _currentToastKey = null;
     _currentTimer = null;
@@ -174,10 +241,38 @@ class ToastManager {
     _isShowing = false;
   }
 
+  /// Clear all toasts associated with a specific request ID
+  static Future<void> clearByRequestId(String requestId) async {
+    final entries = _entriesByRequestId[requestId];
+    if (entries == null) return;
+
+    for (final entry in entries.toList()) {
+      try {
+        entry.remove();
+      } catch (_) {
+        // Already removed
+      }
+    }
+
+    _entriesByRequestId.remove(requestId);
+  }
+
+  /// Get the count of toasts for a specific request ID
+  static int getToastCountByRequestId(String requestId) {
+    return _entriesByRequestId[requestId]?.length ?? 0;
+  }
+
   static Future<void> _showNext() async {
     if (_queue.isEmpty || _isShowing) return;
 
     final next = _queue.removeFirst();
     await _showNow(next);
+  }
+
+  /// Clear all queued and displayed toasts
+  static Future<void> clearAll() async {
+    _queue.clear();
+    _entriesByRequestId.clear();
+    await dismissCurrent();
   }
 }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'message_config.dart';
 import 'message_position.dart';
+import 'toast_action.dart';
 
 /// Internal widget for displaying an animated toast notification.
 ///
 /// This widget handles the visual presentation and animations for toast messages.
-/// It supports entry/exit animations and optional pulse animations.
+/// It supports entry/exit animations, optional pulse animations, action buttons, and error details.
 class ToastWidget extends StatefulWidget {
   final String message;
   final Widget? icon;
@@ -19,6 +20,13 @@ class ToastWidget extends StatefulWidget {
   final TextOverflow? overflow;
   final bool? softWrap;
   final TextAlign? textAlign;
+  final double fontSize;
+  final FontWeight fontWeight;
+  final String? fontFamily;
+  final List<ToastAction>? actions;
+  final String? errorDetails;
+  final bool isPersistent;
+  final bool dismissible;
 
   const ToastWidget({
     super.key,
@@ -33,6 +41,13 @@ class ToastWidget extends StatefulWidget {
     this.overflow,
     this.softWrap,
     this.textAlign,
+    required this.fontSize,
+    required this.fontWeight,
+    this.fontFamily,
+    this.actions,
+    this.errorDetails,
+    this.isPersistent = false,
+    this.dismissible = false,
   });
 
   @override
@@ -49,6 +64,7 @@ class ToastWidgetState extends State<ToastWidget>
   late final Animation<double> _scaleAnimation;
 
   bool _isDismissing = false;
+  bool _detailsExpanded = false;
 
   Alignment _resolveAlignment(MessagePosition position) {
     switch (position) {
@@ -225,22 +241,114 @@ class ToastWidgetState extends State<ToastWidget>
                               widget.borderRadius,
                             ),
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (widget.icon != null) widget.icon!,
-                              if (widget.icon != null) const SizedBox(width: 8),
-                              Flexible(
-                                child: Text(
-                                  widget.message,
-                                  maxLines: widget.maxLines,
-                                  overflow: widget.overflow,
-                                  softWrap: widget.softWrap,
-                                  textAlign: widget.textAlign,
-                                  style: const TextStyle(color: Colors.white),
+                          child: GestureDetector(
+                            onTap: widget.dismissible ? dismiss : null,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    if (widget.icon != null) widget.icon!,
+                                    if (widget.icon != null)
+                                      const SizedBox(width: 8),
+                                    Flexible(
+                                      child: Text(
+                                        widget.message,
+                                        maxLines: widget.maxLines,
+                                        overflow: widget.overflow,
+                                        softWrap: widget.softWrap,
+                                        textAlign: widget.textAlign,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: widget.fontSize,
+                                          fontWeight: widget.fontWeight,
+                                          fontFamily: widget.fontFamily,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
+                                if (widget.errorDetails != null) ...[
+                                  const SizedBox(height: 8),
+                                  GestureDetector(
+                                    onTap: () => setState(
+                                      () =>
+                                          _detailsExpanded = !_detailsExpanded,
+                                    ),
+                                    child: Text(
+                                      _detailsExpanded
+                                          ? 'Hide details'
+                                          : 'Show details',
+                                      style: const TextStyle(
+                                        color: Colors.white70,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                    ),
+                                  ),
+                                  if (_detailsExpanded) ...[
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      widget.errorDetails!,
+                                      style: const TextStyle(
+                                        color: Colors.white70,
+                                        fontSize: 11,
+                                      ),
+                                      maxLines: 5,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ],
+                                if (widget.actions != null &&
+                                    widget.actions!.isNotEmpty) ...[
+                                  const SizedBox(height: 8),
+                                  Wrap(
+                                    spacing: 8,
+                                    runSpacing: 4,
+                                    children: widget.actions!
+                                        .map(
+                                          (action) => SizedBox(
+                                            height: 28,
+                                            child: OutlinedButton(
+                                              onPressed: () {
+                                                action.onPressed();
+                                                if (widget.dismissible) {
+                                                  dismiss();
+                                                }
+                                              },
+                                              style: OutlinedButton.styleFrom(
+                                                side: BorderSide(
+                                                  color:
+                                                      action.color ??
+                                                      Colors.white54,
+                                                ),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 12,
+                                                      vertical: 4,
+                                                    ),
+                                              ),
+                                              child: Text(
+                                                action.label,
+                                                style: TextStyle(
+                                                  color:
+                                                      action.textColor ??
+                                                      Colors.white,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
+                                ],
+                              ],
+                            ),
                           ),
                         ),
                       ),

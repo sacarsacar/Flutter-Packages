@@ -9,6 +9,7 @@ export 'src/message_type.dart';
 export 'src/message_style.dart';
 export 'src/responsive_utils.dart';
 export 'src/snackbar_helper.dart';
+export 'src/toast_action.dart';
 export 'src/toast_helper.dart';
 export 'src/toast_manager.dart';
 export 'src/toast_widget.dart';

@@ -93,6 +93,51 @@ class EasyMessageConfig {
   /// Defaults to true. When enabled, toasts will have a subtle scale animation.
   static bool enableToastPulse = true;
 
+  /// Global navigator key for context-free toast operations.
+  ///
+  /// Set using [setNavigatorKey] to enable showing toasts without BuildContext.
+  static GlobalKey<NavigatorState>? _navigatorKey;
+
+  /// Set the global navigator key for context-free toast operations.
+  ///
+  /// Call this in your main() function before runApp().
+  static void setNavigatorKey(GlobalKey<NavigatorState> navigatorKey) {
+    _navigatorKey = navigatorKey;
+  }
+
+  /// Get the stored navigator key.
+  static GlobalKey<NavigatorState>? get navigatorKey => _navigatorKey;
+
+  /// Default font size for toast messages.
+  ///
+  /// Defaults to 14. Controls the text size in toasts.
+  static double defaultToastFontSize = 14;
+
+  /// Default font weight for toast messages.
+  ///
+  /// Defaults to FontWeight.w500. Controls the text weight in toasts.
+  static FontWeight defaultToastFontWeight = FontWeight.w500;
+
+  /// Default font family for toast messages.
+  ///
+  /// Defaults to null (uses system default). Set to customize the font family.
+  static String? defaultToastFontFamily;
+
+  /// Default font size for snackbar messages.
+  ///
+  /// Defaults to 14. Controls the text size in snackbars.
+  static double defaultSnackBarFontSize = 14;
+
+  /// Default font weight for snackbar messages.
+  ///
+  /// Defaults to FontWeight.w500. Controls the text weight in snackbars.
+  static FontWeight defaultSnackBarFontWeight = FontWeight.w500;
+
+  /// Default font family for snackbar messages.
+  ///
+  /// Defaults to null (uses system default). Set to customize the font family.
+  static String? defaultSnackBarFontFamily;
+
   /// Configures global default settings for all toast and snackbar messages.
   ///
   /// Call this method during app initialization to set up your preferred defaults.
@@ -112,6 +157,12 @@ class EasyMessageConfig {
   /// - [toastPulseReverseAnimationDuration]: Duration of scale-down animation
   /// - [toastPulseScale]: Scale factor for pulse animation
   /// - [enablePulse]: Enable/disable pulse animation
+  /// - [toastFontSize]: Font size for toast text
+  /// - [toastFontWeight]: Font weight for toast text
+  /// - [toastFontFamily]: Font family for toast text
+  /// - [snackBarFontSize]: Font size for snackbar text
+  /// - [snackBarFontWeight]: Font weight for snackbar text
+  /// - [snackBarFontFamily]: Font family for snackbar text
   static void configure({
     Duration? toastDuration,
     Duration? snackBarDuration,
@@ -126,6 +177,12 @@ class EasyMessageConfig {
     Duration? toastPulseReverseAnimationDuration,
     double? toastPulseScale,
     bool? enablePulse,
+    double? toastFontSize,
+    FontWeight? toastFontWeight,
+    String? toastFontFamily,
+    double? snackBarFontSize,
+    FontWeight? snackBarFontWeight,
+    String? snackBarFontFamily,
   }) {
     if (toastDuration != null) {
       defaultToastDuration = toastDuration;
@@ -179,6 +236,30 @@ class EasyMessageConfig {
     if (enablePulse != null) {
       enableToastPulse = enablePulse;
     }
+
+    if (toastFontSize != null) {
+      defaultToastFontSize = toastFontSize;
+    }
+
+    if (toastFontWeight != null) {
+      defaultToastFontWeight = toastFontWeight;
+    }
+
+    if (toastFontFamily != null) {
+      defaultToastFontFamily = toastFontFamily;
+    }
+
+    if (snackBarFontSize != null) {
+      defaultSnackBarFontSize = snackBarFontSize;
+    }
+
+    if (snackBarFontWeight != null) {
+      defaultSnackBarFontWeight = snackBarFontWeight;
+    }
+
+    if (snackBarFontFamily != null) {
+      defaultSnackBarFontFamily = snackBarFontFamily;
+    }
   }
 
   /// Resets all configuration to default values.
@@ -200,5 +281,12 @@ class EasyMessageConfig {
     );
     defaultToastPulseScale = 1.05;
     enableToastPulse = true;
+    _navigatorKey = null;
+    defaultToastFontSize = 14;
+    defaultToastFontWeight = FontWeight.w500;
+    defaultToastFontFamily = null;
+    defaultSnackBarFontSize = 14;
+    defaultSnackBarFontWeight = FontWeight.w500;
+    defaultSnackBarFontFamily = null;
   }
 }
