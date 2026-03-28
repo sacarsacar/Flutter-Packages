@@ -1,3 +1,27 @@
+## 0.2.0 - Enhanced Documentation & Example App Guide
+
+### Documentation Improvements
+- Completely rewrote main README with 900+ lines of comprehensive documentation
+- Created focused pub.dev-optimized package README
+- Massively expanded example app README from 447 to 733 lines (64% expansion)
+- Added professional badges and formatting throughout
+- Added 10+ detailed feature guides with code examples
+- Created learning path progression (Beginner → Intermediate → Advanced)
+- Added comprehensive testing guide with verification checklist
+- Added 19-feature coverage table
+- Added troubleshooting section with 7 common issues and solutions
+- Included responsive design documentation
+- Added implementation architecture guides with code examples
+
+### Example App Enhancements
+- Transformed basic example README into professional educational guide
+- Added detailed feature demonstrations for all 25+ interactive examples
+- Included ASCII diagrams for toast positioning (9 options)
+- Added real-world use case examples (API error handling, file operations, etc.)
+- Created device testing commands for iOS, Android, Web, and Desktop
+- Added lifecycle callback documentation
+- Added persistence and dismissible toast patterns
+
 ## 0.1.0 - Comprehensive Documentation & Example Enhancement
 
 ### Documentation Improvements
