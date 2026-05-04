@@ -10,11 +10,25 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
+  bool _loading = true;
   final List<Map<String, dynamic>> messages = [
     {"text": "Hello 👋", "isMe": false, "time": "10:00 AM"},
     {"text": "Hi, how are you?", "isMe": true, "time": "10:01 AM"},
     {"text": "I’m good! What about you?", "isMe": false, "time": "10:02 AM"},
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    setState(() => _loading = true);
+    await Future.delayed(const Duration(seconds: 2));
+    if (!mounted) return;
+    setState(() => _loading = false);
+  }
 
   void sendMessage() {
     if (_controller.text.trim().isEmpty) return;
@@ -74,8 +88,12 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Chat"), backgroundColor: Colors.green),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _load,
+        child: const Icon(Icons.refresh),
+      ),
       body: MirrorSkeleton(
-        isLoading: true,
+        isLoading: _loading,
         child: Column(
           children: [
             /// Messages

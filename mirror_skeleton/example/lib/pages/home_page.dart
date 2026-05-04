@@ -1,12 +1,19 @@
 import 'package:example/pages/chat_screen.dart';
 import 'package:flutter/material.dart';
 import '../widgets/nav_card.dart';
+import 'analytics_page.dart';
 import 'article_page.dart';
 import 'chat_page.dart';
+import 'controls_page.dart';
 import 'dashboard_page.dart';
 import 'feed_page.dart';
+import 'login_page.dart';
+import 'music_player_page.dart';
 import 'product_grid_page.dart';
 import 'profile_page.dart';
+import 'settings_page.dart';
+import 'shimmer_styles_page.dart';
+import 'wallet_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -55,6 +62,48 @@ class HomePage extends StatelessWidget {
         subtitle: 'Mixed layout with SkeletonIgnore brand banner',
         icon: Icons.space_dashboard_outlined,
         builder: (_) => const DashboardPage(),
+      ),
+      _Demo(
+        title: 'Controls Gallery',
+        subtitle: 'Buttons, chips, switches, sliders, progress, text fields',
+        icon: Icons.tune,
+        builder: (_) => const ControlsPage(),
+      ),
+      _Demo(
+        title: 'Login',
+        subtitle: 'TextFields, password toggle, Checkbox, social buttons',
+        icon: Icons.login,
+        builder: (_) => const LoginPage(),
+      ),
+      _Demo(
+        title: 'Settings',
+        subtitle: 'Sectioned ListTiles with Switch, Checkbox, Slider, Divider',
+        icon: Icons.settings_outlined,
+        builder: (_) => const SettingsPage(),
+      ),
+      _Demo(
+        title: 'Music Player',
+        subtitle: 'Hero artwork, sliders, transport row, queue list',
+        icon: Icons.music_note_outlined,
+        builder: (_) => const MusicPlayerPage(),
+      ),
+      _Demo(
+        title: 'Wallet',
+        subtitle: 'Gradient balance card, action chips, transaction list',
+        icon: Icons.account_balance_wallet_outlined,
+        builder: (_) => const WalletPage(),
+      ),
+      _Demo(
+        title: 'Analytics',
+        subtitle: 'Sparkline + bar + donut CustomPaint charts and stats',
+        icon: Icons.bar_chart,
+        builder: (_) => const AnalyticsPage(),
+      ),
+      _Demo(
+        title: 'Shimmer Styles',
+        subtitle: 'Live playground for direction, pulse, color, intensity',
+        icon: Icons.palette_outlined,
+        builder: (_) => const ShimmerStylesPage(),
       ),
     ];
 

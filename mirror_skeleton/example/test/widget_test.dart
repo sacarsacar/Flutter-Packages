@@ -1,21 +1,16 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:example/main.dart';
 
 void main() {
   testWidgets('MirrorSkeleton example app loads', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
     await tester.pumpWidget(const MirrorSkeletonExampleApp());
 
-    // Verify that the app loaded successfully
-    expect(find.text('MirrorSkeleton Examples'), findsOneWidget);
-    expect(find.text('User Profile'), findsOneWidget);
+    // The home page renders the index of demos. Items further down the
+    // list (Login, Wallet, etc.) are off-screen by default, so just check
+    // the top of the list.
+    expect(find.text('MirrorSkeleton'), findsOneWidget);
+    expect(find.text('Profile'), findsOneWidget);
+    expect(find.text('Feed'), findsOneWidget);
   });
 }
