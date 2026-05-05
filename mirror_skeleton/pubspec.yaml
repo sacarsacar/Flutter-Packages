@@ -3,7 +3,7 @@ description: >-
   Render-tree aware shimmer skeletons for Flutter. One-line wrap, zero layout
   shift, auto-detected widgets, theme-synced colors, and SkeletonIgnore for
   brand elements.
-version: 0.3.0
+version: 0.3.1
 homepage: https://github.com/sacarsacar/Flutter-Packages/tree/main/mirror_skeleton
 repository: https://github.com/sacarsacar/Flutter-Packages
 issue_tracker: https://github.com/sacarsacar/Flutter-Packages/issues
