@@ -28,7 +28,10 @@ class _ChatPageState extends State<ChatPage> {
   Future<void> _load() async {
     setState(() {
       _loading = true;
-      _messages = List.generate(_placeholderCount, (_) => Message.placeholder());
+      _messages = List.generate(
+        _placeholderCount,
+        (_) => Message.placeholder(),
+      );
     });
     final messages = await MockRepository.fetchMessages();
     if (!mounted) return;

@@ -120,7 +120,8 @@ class _ShimmerStylesPageState extends State<ShimmerStylesPage> {
                 Color(0xFFFCE4EC),
               ])
                 _ColorChip(
-                  label: '#${c.toARGB32().toRadixString(16).substring(2).toUpperCase()}',
+                  label:
+                      '#${c.toARGB32().toRadixString(16).substring(2).toUpperCase()}',
                   color: c,
                   selected: _shimmerColor == c,
                   onSelected: () => setState(() => _shimmerColor = c),
@@ -233,10 +234,7 @@ class _SampleCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Aurora Lights',
-                        style: theme.textTheme.titleMedium,
-                      ),
+                      Text('Aurora Lights', style: theme.textTheme.titleMedium),
                       Text(
                         'Released 2 hours ago',
                         style: theme.textTheme.bodySmall?.copyWith(
@@ -270,10 +268,7 @@ class _SampleCard extends StatelessWidget {
               children: [
                 FilledButton(onPressed: () {}, child: const Text('Play')),
                 const SizedBox(width: 8),
-                OutlinedButton(
-                  onPressed: () {},
-                  child: const Text('Save'),
-                ),
+                OutlinedButton(onPressed: () {}, child: const Text('Save')),
                 const Spacer(),
                 IconButton(
                   onPressed: () {},

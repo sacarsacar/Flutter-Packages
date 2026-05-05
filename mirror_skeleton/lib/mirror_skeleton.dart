@@ -1,8 +1,21 @@
+/// Render-tree aware shimmer skeletons for Flutter.
+///
+/// Wrap any widget tree in [MirrorSkeleton] and, while loading, the same
+/// tree is walked at paint time and replaced with auto-generated bones
+/// matching every text run, image, container, button, form control, and
+/// progress indicator. There is no parallel placeholder tree to maintain
+/// — when the design changes, the skeleton stays in sync.
+///
+/// Use [SkeletonIgnore] to keep brand elements (logos, hero
+/// illustrations) visible during loading.
+library;
+
 import 'package:flutter/material.dart';
 
 import 'src/render_mirror_skeleton.dart';
 
-export 'src/render_mirror_skeleton.dart' show ShimmerDirection, MirrorSkeletonStyle;
+export 'src/render_mirror_skeleton.dart'
+    show ShimmerDirection, MirrorSkeletonStyle;
 
 /// Wraps any widget tree and replaces it with an auto-generated shimmer
 /// skeleton while [isLoading] is `true`.
@@ -64,6 +77,10 @@ class MirrorSkeleton extends SingleChildRenderObjectWidget {
   /// effect instead of a sweeping highlight.
   final MirrorSkeletonStyle style;
 
+  /// Creates a skeleton wrapper. Pass [isLoading] to flip between the
+  /// real [child] and the auto-generated shimmer; the remaining
+  /// parameters tune visuals (color, duration, direction, animation
+  /// [style]) and accessibility (`adaptiveSpeed`).
   const MirrorSkeleton({
     super.key,
     required this.isLoading,
@@ -129,7 +146,8 @@ class MirrorSkeleton extends SingleChildRenderObjectWidget {
   }
 
   @override
-  SingleChildRenderObjectElement createElement() => _MirrorSkeletonElement(this);
+  SingleChildRenderObjectElement createElement() =>
+      _MirrorSkeletonElement(this);
 }
 
 /// Custom element that exposes itself to the render object so the render
@@ -169,6 +187,9 @@ class _MirrorSkeletonElement extends SingleChildRenderObjectElement {
 /// );
 /// ```
 class SkeletonIgnore extends SingleChildRenderObjectWidget {
+  /// Creates an opt-out region. The [child] subtree is rendered normally
+  /// (and remains tappable) even while the surrounding [MirrorSkeleton]
+  /// is loading.
   const SkeletonIgnore({super.key, super.child});
 
   @override

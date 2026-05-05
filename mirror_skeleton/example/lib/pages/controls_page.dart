@@ -31,10 +31,7 @@ class _ControlsPageState extends State<ControlsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Controls Gallery')),
-      body: MirrorSkeleton(
-        isLoading: _loading,
-        child: const _ControlsBody(),
-      ),
+      body: MirrorSkeleton(isLoading: _loading, child: const _ControlsBody()),
       floatingActionButton: FloatingActionButton(
         onPressed: _load,
         child: const Icon(Icons.refresh),
@@ -81,10 +78,7 @@ class _ControlsBodyState extends State<_ControlsBody> {
               ElevatedButton(onPressed: () {}, child: const Text('Elevated')),
               OutlinedButton(onPressed: () {}, child: const Text('Outlined')),
               TextButton(onPressed: () {}, child: const Text('Text')),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.favorite),
-              ),
+              IconButton(onPressed: () {}, icon: const Icon(Icons.favorite)),
             ],
           ),
           const Divider(height: 32),
@@ -141,10 +135,7 @@ class _ControlsBodyState extends State<_ControlsBody> {
             ),
           ),
           const SizedBox(height: 12),
-          Slider(
-            value: _slider,
-            onChanged: (v) => setState(() => _slider = v),
-          ),
+          Slider(value: _slider, onChanged: (v) => setState(() => _slider = v)),
           const SizedBox(height: 12),
           TextField(
             controller: _textController,

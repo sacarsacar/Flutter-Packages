@@ -112,13 +112,14 @@ class RenderMirrorSkeleton extends RenderProxyBox {
       duration: _effectiveDuration,
       vsync: _tickerProvider!,
     )..addListener(markNeedsPaint);
-    _fadeController = AnimationController(
-      duration: _transitionDuration,
-      vsync: _tickerProvider!,
-      value: _isLoading ? 1.0 : 0.0,
-    )
-      ..addListener(markNeedsPaint)
-      ..addStatusListener(_onFadeStatusChange);
+    _fadeController =
+        AnimationController(
+            duration: _transitionDuration,
+            vsync: _tickerProvider!,
+            value: _isLoading ? 1.0 : 0.0,
+          )
+          ..addListener(markNeedsPaint)
+          ..addStatusListener(_onFadeStatusChange);
     if (_isLoading && _animationsEnabled) {
       _shimmerController!.repeat();
       _registerTimingsCallback();
@@ -190,8 +191,7 @@ class RenderMirrorSkeleton extends RenderProxyBox {
       }
     }
     if (_frameSamples.length < 20) return;
-    final avg =
-        _frameSamples.reduce((a, b) => a + b) / _frameSamples.length;
+    final avg = _frameSamples.reduce((a, b) => a + b) / _frameSamples.length;
     // 60Hz target ≈ 16.67ms/frame.
     if (avg > 22 && !_adaptiveSlow) {
       _adaptiveSlow = true;
@@ -347,7 +347,10 @@ class RenderMirrorSkeleton extends RenderProxyBox {
     // Mid-fade → real content underneath, skeleton on top with alpha.
     if (fade < 1.0) {
       super.paint(context, offset);
-      context.pushOpacity(offset, (255 * fade).round(), (innerCtx, innerOffset) {
+      context.pushOpacity(offset, (255 * fade).round(), (
+        innerCtx,
+        innerOffset,
+      ) {
         _paintBones(innerCtx, innerOffset);
         _paintShimmer(innerCtx, innerOffset);
       });

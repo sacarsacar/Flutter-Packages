@@ -130,6 +130,7 @@ extension _BoneDetection on RenderMirrorSkeleton {
       }
       e.visitChildren(visit);
     }
+
     root.visitChildren(visit);
   }
 
@@ -362,7 +363,8 @@ extension _BoneDetection on RenderMirrorSkeleton {
       if (decoration is BoxDecoration) {
         final c = decoration.color;
         final hasVisibleColor = c != null && c.a > 0;
-        final hasFill = hasVisibleColor ||
+        final hasFill =
+            hasVisibleColor ||
             decoration.gradient != null ||
             decoration.image != null;
         if (hasFill) {
@@ -589,10 +591,7 @@ extension _BoneDetection on RenderMirrorSkeleton {
     );
   }
 
-  void _addPhysicalShapeBone(
-    RenderPhysicalShape r, {
-    bool backdrop = false,
-  }) {
+  void _addPhysicalShapeBone(RenderPhysicalShape r, {bool backdrop = false}) {
     if (r.size.isEmpty) return;
     final size = r.size;
     final offset = _positionOf(r);
@@ -685,10 +684,7 @@ extension _BoneDetection on RenderMirrorSkeleton {
     return null;
   }
 
-  void _addPhysicalModelBone(
-    RenderPhysicalModel r, {
-    bool backdrop = false,
-  }) {
+  void _addPhysicalModelBone(RenderPhysicalModel r, {bool backdrop = false}) {
     if (r.size.isEmpty) return;
     final transform = _transformOf(r);
     final opacity = backdrop ? _backdropOpacity : 1.0;
@@ -958,9 +954,7 @@ extension _BoneDetection on RenderMirrorSkeleton {
     var top = 0.0;
     if (border is Border) {
       final sides = [border.top, border.right, border.bottom, border.left];
-      final widest = sides.reduce(
-        (a, b) => a.width >= b.width ? a : b,
-      );
+      final widest = sides.reduce((a, b) => a.width >= b.width ? a : b);
       thickness = widest.width > 0 ? widest.width : 1.0;
       // Place the bone where the visible border lives. For a typical Divider
       // (bottom border) this puts the line at the bottom edge.

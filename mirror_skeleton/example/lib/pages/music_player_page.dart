@@ -93,10 +93,7 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              Slider(
-                value: _seek,
-                onChanged: (v) => setState(() => _seek = v),
-              ),
+              Slider(value: _seek, onChanged: (v) => setState(() => _seek = v)),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
@@ -171,10 +168,7 @@ class _MusicPlayerPageState extends State<MusicPlayerPage> {
               const SizedBox(height: 24),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text(
-                  'Up next',
-                  style: theme.textTheme.titleMedium,
-                ),
+                child: Text('Up next', style: theme.textTheme.titleMedium),
               ),
               const SizedBox(height: 8),
               ..._queue.map(

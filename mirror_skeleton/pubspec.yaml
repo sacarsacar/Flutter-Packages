@@ -7,7 +7,6 @@ version: 0.3.0
 homepage: https://github.com/sacarsacar/Flutter-Packages/tree/main/mirror_skeleton
 repository: https://github.com/sacarsacar/Flutter-Packages
 issue_tracker: https://github.com/sacarsacar/Flutter-Packages/issues
-documentation: https://pub.dev/packages/mirror_skeleton
 topics:
   - skeleton
   - shimmer

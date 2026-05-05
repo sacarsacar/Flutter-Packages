@@ -4,12 +4,7 @@ import 'package:flutter/material.dart';
 enum BoneType { text, circle, roundedRect, rect }
 
 /// Direction the shimmer highlight sweeps across the skeleton.
-enum ShimmerDirection {
-  leftToRight,
-  rightToLeft,
-  topToBottom,
-  bottomToTop,
-}
+enum ShimmerDirection { leftToRight, rightToLeft, topToBottom, bottomToTop }
 
 /// Animation style used while the skeleton is visible.
 ///

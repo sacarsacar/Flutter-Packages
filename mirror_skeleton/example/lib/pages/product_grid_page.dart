@@ -28,7 +28,10 @@ class _ProductGridPageState extends State<ProductGridPage> {
   Future<void> _load() async {
     setState(() {
       _loading = true;
-      _products = List.generate(_placeholderCount, (_) => Product.placeholder());
+      _products = List.generate(
+        _placeholderCount,
+        (_) => Product.placeholder(),
+      );
     });
     final products = await MockRepository.fetchProducts();
     if (!mounted) return;

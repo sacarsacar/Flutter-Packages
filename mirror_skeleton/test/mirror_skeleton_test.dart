@@ -63,10 +63,7 @@ void main() {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: MirrorSkeleton(
-              isLoading: true,
-              child: Text('Hello world'),
-            ),
+            body: MirrorSkeleton(isLoading: true, child: Text('Hello world')),
           ),
         ),
       );
@@ -83,11 +80,7 @@ void main() {
           home: Scaffold(
             body: MirrorSkeleton(
               isLoading: true,
-              child: Container(
-                width: 200,
-                height: 80,
-                color: Colors.red,
-              ),
+              child: Container(width: 200, height: 80, color: Colors.red),
             ),
           ),
         ),
@@ -467,11 +460,7 @@ void main() {
               isLoading: true,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  color: Colors.red,
-                ),
+                child: Container(width: 100, height: 100, color: Colors.red),
               ),
             ),
           ),
@@ -492,11 +481,7 @@ void main() {
             body: MirrorSkeleton(
               isLoading: true,
               child: ClipOval(
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  color: Colors.green,
-                ),
+                child: Container(width: 80, height: 80, color: Colors.green),
               ),
             ),
           ),
@@ -525,10 +510,7 @@ void main() {
       final bones = _renderOf(tester).bones;
       expect(bones, hasLength(2));
       // One pill (track), one circle (thumb).
-      expect(
-        bones.where((b) => b.type == BoneType.roundedRect).length,
-        1,
-      );
+      expect(bones.where((b) => b.type == BoneType.roundedRect).length, 1);
       expect(bones.where((b) => b.type == BoneType.circle).length, 1);
       // Track is dimmer than the thumb.
       final track = bones.firstWhere((b) => b.type == BoneType.roundedRect);
@@ -757,11 +739,7 @@ void main() {
           home: Scaffold(
             body: MirrorSkeleton(
               isLoading: true,
-              child: Container(
-                width: 100,
-                height: 80,
-                color: Colors.amber,
-              ),
+              child: Container(width: 100, height: 80, color: Colors.amber),
             ),
           ),
         ),
@@ -772,7 +750,8 @@ void main() {
       expect(
         bones.first.opacityScale,
         1.0,
-        reason: 'a leaf container has nothing layered on top, so it should '
+        reason:
+            'a leaf container has nothing layered on top, so it should '
             'render at full opacity instead of as a dim backdrop',
       );
     });
@@ -810,14 +789,17 @@ void main() {
         expect(
           bones,
           hasLength(1),
-          reason: 'the whole TextField subtree (icons, label, hint, border, '
+          reason:
+              'the whole TextField subtree (icons, label, hint, border, '
               'editable region) should collapse into one rounded-rect bone',
         );
         expect(bones.first.type, BoneType.roundedRect);
       },
     );
 
-    testWidgets('TextFormField also collapses to a single bone', (tester) async {
+    testWidgets('TextFormField also collapses to a single bone', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: Scaffold(

@@ -161,10 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                     "Don't have an account? ",
                     style: theme.textTheme.bodyMedium,
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('Sign up'),
-                  ),
+                  TextButton(onPressed: () {}, child: const Text('Sign up')),
                 ],
               ),
             ],

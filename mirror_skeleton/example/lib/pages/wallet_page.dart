@@ -174,13 +174,7 @@ class _Txn {
   final String amount;
   final bool incoming;
   final IconData icon;
-  const _Txn(
-    this.title,
-    this.subtitle,
-    this.amount,
-    this.incoming,
-    this.icon,
-  );
+  const _Txn(this.title, this.subtitle, this.amount, this.incoming, this.icon);
 }
 
 class _TxnTile extends StatelessWidget {

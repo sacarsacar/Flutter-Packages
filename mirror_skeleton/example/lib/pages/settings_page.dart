@@ -94,8 +94,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     secondary: const Icon(Icons.shield_outlined),
                     title: const Text('Require 2FA on login'),
                     value: _twoFactor,
-                    onChanged: (v) =>
-                        setState(() => _twoFactor = v ?? false),
+                    onChanged: (v) => setState(() => _twoFactor = v ?? false),
                   ),
                   const Divider(height: 1, indent: 72),
                   const ListTile(

@@ -28,7 +28,10 @@ class _FeedPageState extends State<FeedPage> {
   Future<void> _load() async {
     setState(() {
       _loading = true;
-      _articles = List.generate(_placeholderCount, (_) => Article.placeholder());
+      _articles = List.generate(
+        _placeholderCount,
+        (_) => Article.placeholder(),
+      );
     });
     final articles = await MockRepository.fetchFeed();
     if (!mounted) return;
