@@ -23,44 +23,36 @@ MirrorSkeleton(
 That's it. No parallel placeholder tree to maintain, no per-widget shimmer config. Edit your real UI and the skeleton stays in sync — automatically.
 
 ---
+---
 ## 🎬 Demo
 
-<table>
-  <tr>
-    <td align="center" width="50%">
-      <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example1.gif" width="250" alt="Demo 1">
-    </td>
-    <td align="center" width="50%">
-      <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example2.gif" width="250" alt="Demo 2">
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="50%">
-      <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example3.gif" width="250" alt="Demo 3">
-    </td>
-    <td align="center" width="50%">
-      <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example4.gif" width="250" alt="Demo 4">
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="50%">
-      <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example5.gif" width="250" alt="Demo 5">
-    </td>
-  </tr>
-    <tr>
-    <td align="center" width="50%">
-      <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example6.gif" width="250" alt="Demo 6">
-    </td>
-    <td align="center" width="50%">
-      <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example7.gif" width="250" alt="Demo 7">
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="50%">
-      <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example8.gif" width="250" alt="Demo 8">
-    </td>
-  </tr>
-</table>
+<div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+  <div style="flex: 1 1 calc(33.333% - 10px); min-width: 250px; max-width: 300px; text-align: center;">
+    <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example1.gif" alt="Demo 1" style="width: 100%;">
+  </div>
+  <div style="flex: 1 1 calc(33.333% - 10px); min-width: 250px; max-width: 300px; text-align: center;">
+    <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example2.gif" alt="Demo 2" style="width: 100%;">
+  </div>
+  <div style="flex: 1 1 calc(33.333% - 10px); min-width: 250px; max-width: 300px; text-align: center;">
+    <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example3.gif" alt="Demo 3" style="width: 100%;">
+  </div>
+  <div style="flex: 1 1 calc(33.333% - 10px); min-width: 250px; max-width: 300px; text-align: center;">
+    <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example4.gif" alt="Demo 4" style="width: 100%;">
+  </div>
+  <div style="flex: 1 1 calc(33.333% - 10px); min-width: 250px; max-width: 300px; text-align: center;">
+    <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example5.gif" alt="Demo 5" style="width: 100%;">
+  </div>
+  <div style="flex: 1 1 calc(33.333% - 10px); min-width: 250px; max-width: 300px; text-align: center;">
+    <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example6.gif" alt="Demo 6" style="width: 100%;">
+  </div>
+  <div style="flex: 1 1 calc(33.333% - 10px); min-width: 250px; max-width: 300px; text-align: center;">
+    <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example7.gif" alt="Demo 7" style="width: 100%;">
+  </div>
+  <div style="flex: 1 1 calc(33.333% - 10px); min-width: 250px; max-width: 300px; text-align: center;">
+    <img src="https://raw.githubusercontent.com/sacarsacar/Flutter-Packages/main/mirror_skeleton/demo/example8.gif" alt="Demo 8" style="width: 100%;">
+  </div>
+</div>
+
 ---
 
 ---
