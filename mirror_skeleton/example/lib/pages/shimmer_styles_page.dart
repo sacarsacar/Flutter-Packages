@@ -72,6 +72,16 @@ class _ShimmerStylesPageState extends State<ShimmerStylesPage> {
                 label: Text('Pulse'),
                 icon: Icon(Icons.bolt_outlined),
               ),
+              ButtonSegment(
+                value: MirrorSkeletonStyle.fade,
+                label: Text('Fade'),
+                icon: Icon(Icons.opacity),
+              ),
+              ButtonSegment(
+                value: MirrorSkeletonStyle.wave,
+                label: Text('Wave'),
+                icon: Icon(Icons.waves),
+              ),
             ],
             selected: {_style},
             onSelectionChanged: (s) => setState(() => _style = s.first),

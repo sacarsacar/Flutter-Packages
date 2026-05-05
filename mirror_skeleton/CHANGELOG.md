@@ -1,5 +1,58 @@
 # Changelog
 
+## 0.3.0
+
+API tightening, TickerMode awareness, and pub.dev publishing fixes.
+
+### Breaking changes
+
+- **Internal files moved to `lib/src/`.** The package now exposes a
+  single public entrypoint, `package:mirror_skeleton/mirror_skeleton.dart`.
+  If you were importing `package:mirror_skeleton/render_mirror_skeleton.dart`
+  directly to reach `RenderMirrorSkeleton`, `Bone`, or `BoneType`, switch
+  to `package:mirror_skeleton/src/render_mirror_skeleton.dart`. These
+  types are not part of the public API and may change without notice.
+- **`MirrorSkeleton` parameter types tightened.** `shimmerDuration`,
+  `transitionDuration`, `shimmerHighlightColor`, `shimmerHighlightIntensity`,
+  `shimmerDirection`, and `style` are no longer nullable; pass the
+  defaults explicitly if you need them. `shimmerColor` remains nullable
+  (null still means "derive from the active theme").
+
+### Added
+
+- **TickerMode awareness.** A `MirrorSkeleton` inside an off-screen
+  `TabBarView` page (or any `TickerMode(enabled: false)` subtree) now
+  stops its shimmer ticker, so invisible loading states don't burn
+  frames in the background.
+
+### Fixes
+
+- **TextField / TextFormField no longer skeletonise as "boxes inside a
+  box".** Previously a `TextField` with a `prefixIcon`, `suffixIcon`,
+  `labelText`, and `OutlineInputBorder` would emit a separate bone for
+  each of those pieces — the icons, the label, the hint, the editable
+  region, and the border decoration all stacked inside one another.
+  Detection now identifies the field by widget identity and emits a
+  single rounded-rect bone for the whole control.
+- **MIT license file shipped.** Previous versions had a placeholder
+  `LICENSE` that pub.dev's analyzer rejected. The README has always
+  said MIT; the file now matches.
+- **Transparent-color containers no longer emit phantom backdrops.**
+  `Container(color: Colors.transparent)` was being treated as
+  "contentful" because the color reference was non-null. Detection now
+  also checks alpha, so an invisible container is invisible in the
+  skeleton too.
+- **`README` install snippet pinned to the right version.**
+- **README "Limitations" section corrected** to describe the actual
+  current behavior of `Transform.rotate` / `RotatedBox` (bones are
+  drawn rotated; only the shimmer overlay is skipped).
+
+### Performance
+
+- **Frame-timing buffer is a `Queue` instead of a `List`.** Sliding
+  the window no longer pays an O(N) `removeAt(0)` cost every frame
+  during adaptive-speed sampling.
+
 ## 0.2.1
 
 ### Fixes
@@ -12,6 +65,12 @@
   panels, etc. They now emit a low-opacity *backdrop* bone for the card
   shape, then the inner content bones layer on top at full opacity (the
   pattern production skeletons use).
+- **Charts read as charts during loading.** Leaf `CustomPaint` widgets
+  are now shape-aware: a square small one (donut, pie, gauge) becomes a
+  circle bone; a wide one (sparkline, bar, line, area) becomes a row of
+  varying-height bar bones, so the loading state actually signals
+  "chart" instead of a featureless rectangle. Anything that doesn't
+  match falls back to the existing rounded-rect bone.
 - **Chat screen demo no longer hangs in the loading state.** The example
   had `isLoading: true` hardcoded; it now ticks off after a delay like
   the other screens.

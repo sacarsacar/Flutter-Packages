@@ -1,12 +1,13 @@
 name: mirror_skeleton
 description: >-
-  Auto-generated, render-tree aware shimmer skeletons for any Flutter widget.
-  One-line wrap, zero layout shift, theme-synced colors, and SkeletonIgnore
-  to keep brand elements visible during loading.
-version: 0.2.1
+  Render-tree aware shimmer skeletons for Flutter. One-line wrap, zero layout
+  shift, auto-detected widgets, theme-synced colors, and SkeletonIgnore for
+  brand elements.
+version: 0.3.0
 homepage: https://github.com/sakarchaulagain/mirror_skeleton
 repository: https://github.com/sakarchaulagain/mirror_skeleton
 issue_tracker: https://github.com/sakarchaulagain/mirror_skeleton/issues
+documentation: https://pub.dev/packages/mirror_skeleton
 topics:
   - skeleton
   - shimmer

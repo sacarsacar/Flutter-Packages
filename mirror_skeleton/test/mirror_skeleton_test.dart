@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mirror_skeleton/mirror_skeleton.dart';
-import 'package:mirror_skeleton/render_mirror_skeleton.dart';
+import 'package:mirror_skeleton/src/render_mirror_skeleton.dart';
 
 /// Helper that returns the [RenderMirrorSkeleton] mounted under the
 /// [MirrorSkeleton] widget so individual tests can inspect bone state.
@@ -16,6 +16,15 @@ RenderMirrorSkeleton _renderOf(WidgetTester tester) {
 Future<void> _settle(WidgetTester tester) async {
   await tester.pump();
   await tester.pump(const Duration(milliseconds: 16));
+}
+
+/// CustomPainter that draws nothing — we only care about the
+/// RenderCustomPaint shape detection, not the painted output.
+class _NoopPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {}
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
 void main() {
@@ -682,6 +691,64 @@ void main() {
       expect(bones.any((b) => b.type == BoneType.text), isTrue);
     });
 
+    testWidgets(
+      'square small CustomPaint becomes a circle bone (donut/pie/gauge)',
+      (tester) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: MirrorSkeleton(
+                isLoading: true,
+                child: SizedBox(
+                  width: 120,
+                  height: 120,
+                  child: CustomPaint(painter: _NoopPainter()),
+                ),
+              ),
+            ),
+          ),
+        );
+        await _settle(tester);
+        final bones = _renderOf(tester).bones;
+        expect(bones, hasLength(1));
+        expect(bones.first.type, BoneType.circle);
+      },
+    );
+
+    testWidgets(
+      'wide CustomPaint chart panel decomposes into multiple bar bones',
+      (tester) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: MirrorSkeleton(
+                isLoading: true,
+                child: SizedBox(
+                  height: 140,
+                  child: CustomPaint(
+                    size: const Size(double.infinity, 140),
+                    painter: _NoopPainter(),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+        await _settle(tester);
+        final bones = _renderOf(tester).bones;
+        // Expect ~7 bar bones, all rounded rects, varying heights.
+        expect(bones.length, greaterThan(3));
+        final allRoundedRect = bones.every(
+          (b) => b.type == BoneType.roundedRect,
+        );
+        expect(allRoundedRect, isTrue);
+        // Bar heights should differ (the heuristic uses varied heights so
+        // it reads as a real chart).
+        final uniqueHeights = bones.map((b) => b.size.height).toSet();
+        expect(uniqueHeights.length, greaterThan(2));
+      },
+    );
+
     testWidgets('leaf container (no content) is still a solid bone', (
       tester,
     ) async {
@@ -708,6 +775,68 @@ void main() {
         reason: 'a leaf container has nothing layered on top, so it should '
             'render at full opacity instead of as a dim backdrop',
       );
+    });
+  });
+
+  group('text field detection', () {
+    testWidgets(
+      'TextField with prefix/suffix icon and OutlineInputBorder produces a '
+      'single bone, not boxes inside boxes',
+      (tester) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: MirrorSkeleton(
+                isLoading: true,
+                child: TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    hintText: 'you@example.com',
+                    prefixIcon: const Icon(Icons.email_outlined),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () {},
+                    ),
+                    border: const OutlineInputBorder(),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+        await _settle(tester);
+
+        final bones = _renderOf(tester).bones;
+        expect(
+          bones,
+          hasLength(1),
+          reason: 'the whole TextField subtree (icons, label, hint, border, '
+              'editable region) should collapse into one rounded-rect bone',
+        );
+        expect(bones.first.type, BoneType.roundedRect);
+      },
+    );
+
+    testWidgets('TextFormField also collapses to a single bone', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Scaffold(
+            body: MirrorSkeleton(
+              isLoading: true,
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                  prefixIcon: Icon(Icons.person),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+      await _settle(tester);
+
+      final bones = _renderOf(tester).bones;
+      expect(bones, hasLength(1));
     });
   });
 }
