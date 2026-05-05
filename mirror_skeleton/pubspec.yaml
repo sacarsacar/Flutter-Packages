@@ -4,9 +4,9 @@ description: >-
   shift, auto-detected widgets, theme-synced colors, and SkeletonIgnore for
   brand elements.
 version: 0.3.0
-homepage: https://github.com/sakarchaulagain/mirror_skeleton
-repository: https://github.com/sakarchaulagain/mirror_skeleton
-issue_tracker: https://github.com/sakarchaulagain/mirror_skeleton/issues
+homepage: https://github.com/sacarsacar/Flutter-Packages/tree/main/mirror_skeleton
+repository: https://github.com/sacarsacar/Flutter-Packages
+issue_tracker: https://github.com/sacarsacar/Flutter-Packages/issues
 documentation: https://pub.dev/packages/mirror_skeleton
 topics:
   - skeleton

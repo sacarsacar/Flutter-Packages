@@ -1,0 +1,26 @@
+# README references these via raw.githubusercontent.com URLs, so pub.dev
+# loads them from GitHub directly — no need to inflate the published
+# archive by ~38 MB.
+demo/
+
+# Build artifacts and tooling caches.
+.dart_tool/
+build/
+.idea/
+.vscode/
+.DS_Store
+*.iml
+coverage/
+
+# Build artifacts inside the example app are useless to package
+# consumers; pub.dev's "example" tab only needs source files.
+example/.dart_tool/
+example/.idea/
+example/.vscode/
+example/build/
+example/ios/
+example/android/
+example/macos/
+example/linux/
+example/windows/
+example/web/
